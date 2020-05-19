@@ -28,6 +28,7 @@
       "app",
       "kebab-case"
     ],
+    "no-string-literal": false,
     "eofline": true,
     "import-blacklist": [
       true,
@@ -44,6 +45,7 @@
       true,
       140
     ],
+    "member-access": false,
     "member-ordering": [
       true,
       {
@@ -55,6 +57,7 @@
         ]
       }
     ],
+    "no-consecutive-blank-lines": false,
     "no-console": [
       true,
       "debug",
@@ -76,6 +79,8 @@
       true,
       "as-needed"
     ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
     "quotemark": [
       true,
       "single"
@@ -116,7 +121,8 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-snake-case"
       ]
     },
     "whitespace": {
