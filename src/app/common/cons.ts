@@ -26,12 +26,29 @@ export function buildQueryString(page: number = 0, page_size: number = 10, order
   return '';
 }
 
-function buildFilterString(filter: { [key: string]: any }) {
+function buildFilterString(_filter: { [key: string]: any }) {
+  const filter = {..._filter};
   let filterString = '';
   Object.keys(filter).forEach((key) => {
-    filterString += filter[key] ? `${key}=${filter[key]}&` : '';
+    let value = filter[key];
+    if (value) {
+      if (value instanceof Date) {
+        value = reformatDate(key, value);
+      }
+      filterString += `${key}=${value}&`;
+    }
   });
   return filterString;
+}
+
+function reformatDate(field_name: string, date: Date): string {
+  if (field_name.includes('_before')) {
+    return formatDateToString(date, MAX_TIME);
+  } else if (field_name.includes('_after')) {
+    return formatDateToString(date, MIN_TIME);
+  } else {
+    return formatDateToString(date);
+  }
 }
 
 export function formatDateToString(date: Date | string, time: string = ''): string {

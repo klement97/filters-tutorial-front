@@ -6,3 +6,7 @@ table {
     width: 100%;
     padding: 30px;
 }
+
+form mat-form-field {
+    margin-right: 8px;
+}

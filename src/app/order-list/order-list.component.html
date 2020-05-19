@@ -1,4 +1,86 @@
 <div class="container">
+    <div class="filter-form">
+        <form [formGroup]="filterForm">
+
+            <!-- ID Filter -->
+            <mat-form-field>
+                <mat-label>ID</mat-label>
+                <input type="number" matInput formControlName="id">
+            </mat-form-field>
+
+            <!-- Customer Filter -->
+            <mat-form-field>
+                <mat-label>Customer Contains</mat-label>
+                <input type="text" matInput formControlName="customer">
+            </mat-form-field>
+
+            <!-- User First Name -->
+            <mat-form-field>
+                <mat-label>User First Name</mat-label>
+                <input type="text" matInput formControlName="user__first_name">
+            </mat-form-field>
+
+            <!-- User Last Name -->
+            <mat-form-field>
+                <mat-label>User Last Name</mat-label>
+                <input type="text" matInput formControlName="user__last_name">
+            </mat-form-field>
+
+            <!-- Min Amount -->
+            <mat-form-field>
+                <mat-label>Min Amount</mat-label>
+                <input type="number" matInput formControlName="amount_min">
+            </mat-form-field>
+
+            <!-- Max Amount -->
+            <mat-form-field>
+                <mat-label>Max Amount</mat-label>
+                <input type="number" matInput formControlName="amount_max">
+            </mat-form-field>
+
+            <!-- Min Price -->
+            <mat-form-field>
+                <mat-label>Min Price</mat-label>
+                <input type="number" matInput formControlName="price_min">
+            </mat-form-field>
+
+            <!-- Max Price -->
+            <mat-form-field>
+                <mat-label>Max Price</mat-label>
+                <input type="number" matInput formControlName="price_max">
+            </mat-form-field>
+
+            <!-- Deleted -->
+            <mat-form-field>
+                <mat-label>Deleted</mat-label>
+                <mat-select formControlName="deleted">
+                    <mat-option [value]="'null'">Doesn't matter</mat-option>
+                    <mat-option [value]="'true'">Only deleted orders</mat-option>
+                    <mat-option [value]="'false'">Only not deleted orders</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Date Created After -->
+            <mat-form-field>
+                <mat-label>Starting from</mat-label>
+                <input matInput [matDatepicker]="start" formControlName="date_created_after">
+                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                <mat-datepicker #start></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Date Created Before -->
+            <mat-form-field>
+                <mat-label>Ending with</mat-label>
+                <input matInput [matDatepicker]="end" formControlName="date_created_before">
+                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                <mat-datepicker #end></mat-datepicker>
+            </mat-form-field>
+            &nbsp;
+            <button type="submit" (click)="filterOrders()" mat-stroked-button color="primary">Search</button>&nbsp;
+            <button type="button" (click)="clearFilterForm()" mat-stroked-button color="primary">Clear</button>
+        </form>
+    </div>
+
     <div class="mat-elevation-z8" matSort (matSortChange)="sortChange($event)" matSortDisableClear matSortActive="id" matSortDirection="asc">
         <table mat-table [dataSource]="orders">
 
@@ -29,25 +111,30 @@
             <!-- Amount -->
             <ng-container matColumnDef="amount">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Amount</th>
-                <td mat-cell *matCellDef="let order"> {{order.amount}} </td>
+                <td mat-cell *matCellDef="let order"> {{order.amount}} pcs</td>
             </ng-container>
 
             <!-- Price -->
             <ng-container matColumnDef="price">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Price</th>
-                <td mat-cell *matCellDef="let order"> {{order.price}} </td>
+                <td mat-cell *matCellDef="let order"> ${{order.price}} </td>
             </ng-container>
 
             <!-- Deleted -->
             <ng-container matColumnDef="deleted">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Deleted</th>
-                <td mat-cell *matCellDef="let order"> {{order.deleted}} </td>
+                <td mat-cell *matCellDef="let order">
+                    <mat-icon style="color: red" *ngIf="order.deleted else notDeleted">clear</mat-icon>
+                    <ng-template #notDeleted>
+                        <mat-icon style="color: green">check</mat-icon>
+                    </ng-template>
+                </td>
             </ng-container>
 
             <!-- Date Created -->
             <ng-container matColumnDef="date_created">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Date Created</th>
-                <td mat-cell *matCellDef="let order"> {{order.date_created | date: 'yyyy-MM-dd HH:mm' : ''}} </td>
+                <td mat-cell *matCellDef="let order"> {{order.date_created}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
