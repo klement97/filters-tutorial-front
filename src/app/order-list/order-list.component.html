@@ -81,8 +81,8 @@
         </form>
     </div>
 
-    <div class="mat-elevation-z8" matSort (matSortChange)="sortChange($event)" matSortDisableClear matSortActive="id" matSortDirection="asc">
-        <table mat-table [dataSource]="orders">
+    <div class="mat-elevation-z8">
+        <table mat-table #sort="matSort" (matSortChange)="getOrders()" matSortDisableClear matSortActive="id" matSortDirection="asc" matSort [dataSource]="orders">
 
             <!-- ID -->
             <ng-container matColumnDef="id">

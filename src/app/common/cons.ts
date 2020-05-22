@@ -1,11 +1,12 @@
 import { formatDate } from '@angular/common';
+import { MatSort } from '@angular/material/sort';
 
 
 export const MIN_TIME = '00:00:00.000000';
 export const MAX_TIME = '23:59:59.999999';
 
 
-export function buildQueryString(page: number = 0, page_size: number = 10, ordering: string = '', filter: any): string {
+export function buildQueryString(page: number = 0, page_size: number = 10, sort: MatSort, filter: any): string {
   const queryString = [];
   page++;
   if (page) {
@@ -14,7 +15,8 @@ export function buildQueryString(page: number = 0, page_size: number = 10, order
   if (page_size) {
     queryString.push(`page_size=${page_size}`);
   }
-  if (ordering) {
+  if (sort) {
+    const ordering = sort ? getSort(sort.active, sort.direction) : '-id';
     queryString.push(`ordering=${ordering}`);
   }
   if (filter) {
