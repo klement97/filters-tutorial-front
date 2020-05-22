@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderModel } from 'src/app/models/order.models';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { getSort } from 'src/app/common/cons';
+import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -13,14 +12,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('sort', {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = [
-    'id', 'customer', 'user_username', 'user__first_name', 'user__last_name', 'amount', 'price', 'deleted', 'date_created'
-  ];
+  displayedColumns: string[] = ['id', 'customer', 'username', 'user__first_name', 'user__last_name', 'amount', 'price', 'deleted', 'date_created'];
   orders: OrderModel[];
   count = 0;
-  ordering = 'id';
   filterForm: FormGroup;
 
   constructor(
@@ -35,16 +31,11 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders() {
-    this.orderService.getOrders(this.paginator.pageIndex, this.paginator.pageSize, this.ordering, this.filterForm.value)
+    this.orderService.getOrders(this.paginator, this.sort, this.filterForm.value)
       .subscribe(res => {
         this.orders = res.data;
         this.count = res.pagination.count;
       });
-  }
-
-  sortChange({active, direction}: Sort) {
-    this.ordering = getSort(active, direction);
-    this.getOrders();
   }
 
   filterOrders() {
