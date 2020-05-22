@@ -14,6 +14,12 @@
                 <input type="text" matInput formControlName="customer">
             </mat-form-field>
 
+            <!-- User Username -->
+            <mat-form-field>
+                <mat-label>User Username Contains</mat-label>
+                <input type="text" matInput formControlName="username">
+            </mat-form-field>
+
             <!-- User First Name -->
             <mat-form-field>
                 <mat-label>User First Name</mat-label>
@@ -94,6 +100,12 @@
             <ng-container matColumnDef="customer">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Customer</th>
                 <td mat-cell *matCellDef="let order"> {{order.customer}} </td>
+            </ng-container>
+
+            <!-- User Username -->
+            <ng-container matColumnDef="user_username">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> User Username</th>
+                <td mat-cell *matCellDef="let order">{{order.user.username}}</td>
             </ng-container>
 
             <!-- User First Name -->

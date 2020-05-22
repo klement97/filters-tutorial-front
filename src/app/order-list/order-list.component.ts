@@ -16,7 +16,7 @@ export class OrderListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = [
-    'id', 'customer', 'user__first_name', 'user__last_name', 'amount', 'price', 'deleted', 'date_created'
+    'id', 'customer', 'user_username', 'user__first_name', 'user__last_name', 'amount', 'price', 'deleted', 'date_created'
   ];
   orders: OrderModel[];
   count = 0;
@@ -55,8 +55,9 @@ export class OrderListComponent implements OnInit {
   initFilterForm() {
     this.filterForm = this.fb.group({
       id: null, customer: '', user__first_name: '', user__last_name: '',
-      amount_min: null, amount_max: null, price_min: null, price_max: null,
-      deleted: null, date_created_after: '', date_created_before: ''
+      username: '', amount_min: null, amount_max: null,
+      price_min: null, price_max: null, deleted: null,
+      date_created_after: '', date_created_before: ''
     });
   }
 
