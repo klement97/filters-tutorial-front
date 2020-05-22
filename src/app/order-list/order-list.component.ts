@@ -31,7 +31,7 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders() {
-    this.orderService.getOrders(this.paginator.pageIndex, this.paginator.pageSize, this.sort, this.filterForm.value)
+    this.orderService.getOrders(this.paginator, this.sort, this.filterForm.value)
       .subscribe(res => {
         this.orders = res.data;
         this.count = res.pagination.count;

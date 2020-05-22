@@ -5,6 +5,7 @@ import { OrderModel } from 'src/app/models/order.models';
 import { environment } from 'src/environments/environment';
 import { buildQueryString } from 'src/app/common/cons';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 const ORDERS_URL = `${environment.apiHost}/orders/`;
 
@@ -16,9 +17,9 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getOrders(page: number, page_size: number, sort: MatSort, filter: any): Observable<ListResponse<OrderModel>> {
+  getOrders(paginator: MatPaginator, sort: MatSort, filter: any): Observable<ListResponse<OrderModel>> {
     return this.http.get<ListResponse<OrderModel>>(ORDERS_URL +
-      buildQueryString(page, page_size, sort, filter));
+      buildQueryString(paginator, sort, filter));
   }
 }
 

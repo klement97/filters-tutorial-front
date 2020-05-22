@@ -1,14 +1,18 @@
 import { formatDate } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 export const MIN_TIME = '00:00:00.000000';
 export const MAX_TIME = '23:59:59.999999';
 
 
-export function buildQueryString(page: number = 0, page_size: number = 10, sort: MatSort, filter: any): string {
+export function buildQueryString(paginator: MatPaginator, sort: MatSort, filter: any): string {
   const queryString = [];
-  page++;
+  const page_size: number = paginator.pageSize ? paginator.pageSize : 10;
+  let page: number = paginator.pageIndex ? paginator.pageIndex : 0;
+  page++;  // mat-paginator starts indexing from zero
+
   if (page) {
     queryString.push(`page=${page}`);
   }
